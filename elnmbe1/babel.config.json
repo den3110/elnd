@@ -1,12 +1,8 @@
 {
-    "presets": ["@babel/preset-env"],
-    "plugins": [
-      ["module-resolver", {
-        "root": ["./"],
-        "alias": {
-          "@utils": "./src/utils"
-        },
-        "extensions": [".js", ".jsx", ".ts", ".tsx"]
-      }]
-    ]
-  }
+  "plugins": [
+    "@babel/plugin-transform-runtime",
+    "@babel/plugin-proposal-optional-chaining"
+  ],
+  "presets": ["@babel/preset-env"],
+  "ignore": ["node_modules"]
+}
