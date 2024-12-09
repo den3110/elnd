@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/about/About.jsx", "app/about/page.jsxc", "app/admin/categories/page.jsx", "app/admin/courses/page.jsx", "app/admin/courses-analytics/page.jsx", "app/admin/create-course/page.jsx", "app/admin/edit-course/[id]/page.jsx", "app/admin/faq/page.jsx", "app/admin/hero/page.jsx", "app/admin/invoices/page.jsx", "app/admin/orders-analytics/page.jsx", "app/admin/team/page.jsx", "app/admin/transcribeVideos/page.jsx", "app/admin/users/page.jsx", "app/admin/users-analytics/page.jsx", "app/admin/page.jsx", "app/components/Admin/Analytics/CourseAnalytics.jsx", "app/components/Admin/Analytics/OrdersAnalytics.jsx", "app/components/Admin/Analytics/UserAnalytics.jsx", "app/components/Admin/Course/AllCourses.jsx", "app/components/Admin/Course/CourseContent.jsx", "app/components/Admin/Course/CourseData.jsx", "app/components/Admin/Course/CourseInformation.jsx", "app/components/Admin/Course/CourseOptions.jsx", "app/components/Admin/Course/CreateCourse.jsx", "app/components/Admin/Course/EditCourse.jsx", "app/components/Admin/Customization/EditCategories.jsx", "app/components/Admin/Customization/EditFaq.jsx", "app/components/Admin/Customization/EditHero.jsx", "app/components/Admin/sidebar/AdminSidebar.jsx", "app/components/Admin/sidebar/Icon.jsx", "app/components/Admin/TranscribeVideos/TranscribeVideos.jsx", "app/components/Admin/Users/AllUsers.jsx", "app/components/Admin/DashboardHeader.jsx", "app/components/Auth/Login.jsx", "app/components/Auth/Verification.jsx", "app/components/Course/AskQuestion.jsx", "app/components/Course/CourseCard.jsx", "app/components/Course/CourseContent.jsx", "app/components/Course/CourseContentList.jsx", "app/components/Course/CourseDetails.jsx", "app/components/Course/CourseDetailsPage.jsx", "app/components/FAQ/FAQ.jsx", "app/components/Loader/Loader.jsx", "app/components/Profile/ChangePassword.jsx", "app/components/Profile/SideBarProfile.jsx", "app/components/Profile/Profile.jsx", "app/components/Review/ReviewCard.jsx", "app/components/Route/Courses.jsx", "app/components/Route/Hero.jsx", "app/components/Route/Reviews.jsx", "app/components/Footer.jsx", "app/components/Header.jsx", "app/course/[id]/page.jsx", "app/course-access/[id]/page.jsx", "app/courses/page.jsx", "app/faq/page.jsx", "app/hooks/adminProtected.jsx", "app/hooks/teacherProtected.jsx", "app/hooks/useProtected.jsx", "app/hooks/userAuth.jsx", "app/logout/index.jsx", "app/policy/page.jsx", "app/policy/Policy.jsx", "app/privacy-policy/page.jsx", "app/privacy-policy/Privacy-Policy.jsx", "app/profile/page.jsx", "app/teacher/courses/page.jsx", "app/teacher/courses-analytics/page.jsx", "app/teacher/create-course/page.jsx", "app/teacher/edit-course/[id]/page.jsx", "app/teacher/invoices/page.jsx", "app/teacher/users/page.jsx", "app/teacher/users-analytics/page.jsx", "app/teacher/page.jsx", "app/layout.jsx", "app/page.jsx", "app/Provider.jsx", "pages/_app.jsx", "redux/features/analytics/analyticsApi.js", "redux/features/api/apiSlice.js", "redux/features/auth/authApi.js", "redux/features/auth/authSlice.js", "redux/features/courses/coursesApi.js", "redux/features/layout/layoutApi.js", "redux/features/notifications/notificationsApi.js", "redux/features/orders/ordersApi.js", "redux/features/user/userApi.js", "redux/features/store.js"],
+  "exclude": ["node_modules"]
+}
