@@ -1,4 +1,5 @@
 "use client"
+
 import React, { useEffect, useState } from "react"
 import SideBarProfile from "./SideBarProfile"
 import { useLogOutQuery } from "../../../redux/features/auth/authApi"
@@ -20,10 +21,15 @@ const Profile = ({ user }) => {
   })
 
   const [active, setActive] = useState(1)
-
+  function deleteCookie(name) {
+    // Set cookie with expired date
+    document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+  }
   const logOutHandler = async () => {
     setLogout(true)
-    await signOut()
+    // await signOut()
+    deleteCookie("access_token")
+    window.location.reload()
   }
 
   if (typeof window !== "undefined") {

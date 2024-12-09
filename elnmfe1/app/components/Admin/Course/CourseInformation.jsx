@@ -35,7 +35,7 @@ const CourseInformation = ({
       formData.append("file", file)
       formData.append("title", courseInfo.name)
       const res = await axios.post(
-        "http://localhost:8000/api/v1/upload",
+        NEXT_PUBLIC_SERVER_URI + "upload",
         formData
       )
       return res.data
