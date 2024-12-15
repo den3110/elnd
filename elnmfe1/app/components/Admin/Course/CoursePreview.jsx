@@ -47,7 +47,7 @@ const CoursePreview = ({
           </div>
         </div>
 
-        <div className="flex items-center">
+        {/* <div className="flex items-center">
           <input
             type="text"
             name=""
@@ -60,7 +60,7 @@ const CoursePreview = ({
           >
             Apply
           </div>
-        </div>
+        </div> */}
         {/* <p className="pb-1">• Source code included</p>
         <p className="pb-1">• Full lifetime access</p>
         <p className="pb-1">• Certificate of completion</p>

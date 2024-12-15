@@ -638,11 +638,12 @@ const CourseContent = ({
 
   const handleOptions = async () => {
     if (
-      courseContentData[courseContentData.length - 1].title === "" ||
-      courseContentData[courseContentData.length - 1].description === "" ||
-      // courseContentData[courseContentData.length - 1].videoUrl === '' ||
-      courseContentData[courseContentData.length - 1].links[0].title === "" ||
-      courseContentData[courseContentData.length - 1].links[0].url === ""
+      courseContentData[courseContentData.length - 1].title === "" 
+      // courseContentData[courseContentData.length - 1].description === "" ||
+      // courseContentData[courseContentData.length - 1].videoUrl === '' 
+      // courseContentData[courseContentData.length - 1].links[0].title === "" ||
+      // courseContentData[courseContentData.length - 1].links[0].url === "" ||
+      
     ) {
       toast.error("section can't be empty!")
     } else {
