@@ -105,7 +105,7 @@ const EditCategories = (props) => {
                         setCategories((prevCategory) =>
                           prevCategory.filter((i) => i._id !== item._id)
                         );
-                        deleteLayout("Categories", item.title);
+                        deleteLayout({type: "Categories", title: item.title});
                       }}
                     />
                   </div>

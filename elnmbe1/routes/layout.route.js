@@ -1,6 +1,6 @@
 import express from "express";
 import { authorizeRoles, isAutheticated } from "../middleware/auth";
-import { createLayout, editLayout, getLayoutByType } from "../controllers/layout.controller";
+import { createLayout, deleteLayout, editLayout, getLayoutByType } from "../controllers/layout.controller";
 const layoutRouter = express.Router();
 
 /**
@@ -102,7 +102,7 @@ layoutRouter.put("/edit-layout", isAutheticated, authorizeRoles("admin"), editLa
 layoutRouter.get("/get-layout/:type", getLayoutByType);
 
 
-layoutRouter.delete("/delete-layout/:type/:title", isAutheticated, authorizeRoles("admin"), editLayout);
+layoutRouter.delete("/delete-layout/:type/:title", isAutheticated, authorizeRoles("admin"), deleteLayout);
 
 
 export default layoutRouter;
