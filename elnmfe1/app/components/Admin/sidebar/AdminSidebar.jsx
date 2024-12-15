@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography } from "@mui/material";
 import "react-pro-sidebar/dist/css/styles.css";
+import Cookies from "js-cookie";
 import {
   HomeOutlinedIcon,
   ArrowForwardIosIcon,
@@ -329,7 +330,8 @@ const Sidebar = () => {
                 onClick={(e) => {
                   try {
                     e.preventDefault();
-                    deleteCookie("access_token");
+                    Cookies.remove("access_token");
+                    Cookies.remove("refresh_token");
                     window.location.href = window.location.origin;
                   } catch (e) {
                     console.log(e);
