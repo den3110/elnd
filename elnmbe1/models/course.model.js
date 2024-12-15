@@ -73,7 +73,7 @@ const courseSchema = new Schema(
     },
     demoUrl: {
       type: String,
-      required: true
+      required: false
     },
     benefits: [{ title: String }],
     prerequisites: [{ title: String }],

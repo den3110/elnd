@@ -1,74 +1,74 @@
+
+
 import {
   useEditLayoutMutation,
-  useGetHeroDataQuery
-} from "@/redux/features/layout/layoutApi"
-import React, { useEffect, useState } from "react"
-import Loader from "../../Loader/Loader"
-import { styles } from "@/app/styles/style"
-import { AiOutlineDelete } from "react-icons/ai"
-import { IoMdAddCircleOutline } from "react-icons/io"
-import { toast } from "react-hot-toast"
+  useGetHeroDataQuery,
+} from "@/redux/features/layout/layoutApi";
+import React, { useEffect, useState } from "react";
+import Loader from "../../Loader/Loader";
+import { styles } from "@/app/styles/style";
+import { AiOutlineDelete } from "react-icons/ai";
+import { IoMdAddCircleOutline } from "react-icons/io";
+import { toast } from "react-hot-toast";
 
-const EditCategories = props => {
+const EditCategories = (props) => {
   const { data, isLoading, refetch } = useGetHeroDataQuery("Categories", {
-    refetchOnMountOrArgChange: true
-  })
-  const [
-    editLayout,
-    { isSuccess: layoutSuccess, error }
-  ] = useEditLayoutMutation()
-  const [categories, setCategories] = useState([])
+    refetchOnMountOrArgChange: true,
+  });
+  const [editLayout, { isSuccess: layoutSuccess, error }] =
+    useEditLayoutMutation();
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     if (data) {
-      setCategories(data.layout?.categories)
+      setCategories(data.layout?.categories || []);
     }
     if (layoutSuccess) {
-      refetch()
-      toast.success("Categories updated successfully")
+      refetch();
+      toast.success("Categories updated successfully");
     }
 
     if (error) {
       if ("data" in error) {
-        const errorData = error
-        toast.error(errorData?.data?.message)
+        const errorData = error;
+        toast.error(errorData?.data?.message);
       }
     }
-  }, [data, layoutSuccess, error, refetch])
+  }, [data, layoutSuccess, error, refetch]);
 
   const handleCategoriesAdd = (id, value) => {
-    setCategories(prevCategory =>
-      prevCategory.map(i => (i._id === id ? { ...i, title: value } : i))
-    )
-  }
+    setCategories((prevCategory) =>
+      prevCategory.map((i) => (i._id === id ? { ...i, title: value } : i))
+    );
+  };
 
   const newCategoriesHandler = () => {
-    if (categories[categories.length - 1].title === "") {
-      toast.error("Category title cannot be empty")
+    if (categories?.[categories?.length - 1]?.title === "") {
+      toast.error("Category title cannot be empty");
     } else {
-      setCategories(prevCategory => [...prevCategory, { title: "" }])
+      setCategories((prevCategory) => [...prevCategory, { title: "" }]);
     }
-  }
+  };
 
   const areCategoriesUnchanged = (originalCategories, newCategories) => {
-    return JSON.stringify(originalCategories) === JSON.stringify(newCategories)
-  }
+    return JSON.stringify(originalCategories) === JSON.stringify(newCategories);
+  };
 
-  const isAnyCategoryTitleEmpty = categories => {
-    return categories.some(q => q.title === "")
-  }
+  const isAnyCategoryTitleEmpty = (categories) => {
+    return categories.some((q) => q.title === "");
+  };
 
   const editCategoriesHandler = async () => {
     if (
-      !areCategoriesUnchanged(data.layout.categories, categories) &&
+      !areCategoriesUnchanged(data?.layout?.categories, categories) &&
       !isAnyCategoryTitleEmpty(categories)
     ) {
       await editLayout({
         type: "Categories",
-        categories
-      })
+        categories,
+      });
     }
-  }
+  };
 
   return (
     <>
@@ -85,7 +85,7 @@ const EditCategories = props => {
                     <input
                       className={`${styles.input} !w-[unset] !border-none !text-[20px]`}
                       value={item.title}
-                      onChange={e =>
+                      onChange={(e) =>
                         handleCategoriesAdd(item._id, e.target.value)
                       }
                       placeholder="Enter category title..."
@@ -93,14 +93,14 @@ const EditCategories = props => {
                     <AiOutlineDelete
                       className="dark:text-white text-black text-[18px] cursor-pointer"
                       onClick={() => {
-                        setCategories(prevCategory =>
-                          prevCategory.filter(i => i._id !== item._id)
-                        )
+                        setCategories((prevCategory) =>
+                          prevCategory.filter((i) => i._id !== item._id)
+                        );
                       }}
                     />
                   </div>
                 </div>
-              )
+              );
             })}
           <br />
           <br />
@@ -133,7 +133,7 @@ const EditCategories = props => {
         </div>
       )}
     </>
-  )
-}
+  );
+};
 
-export default EditCategories
+export default EditCategories;
