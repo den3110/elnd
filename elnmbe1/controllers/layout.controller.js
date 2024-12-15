@@ -158,7 +158,7 @@ export const deleteLayout = CatchAsyncError(async (req, res, next) => {
 
       // Tìm và xoá mục có title cụ thể khỏi danh mục
       const updatedCategories = categoriesData.categories.filter(
-        (category) => category !== title // So sánh title để xoá
+        (category) => category.title !== title // So sánh title để xoá
       );
 
       // Cập nhật lại dữ liệu với danh sách categories đã xoá mục
