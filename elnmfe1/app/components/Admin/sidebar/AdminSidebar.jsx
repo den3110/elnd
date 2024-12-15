@@ -26,6 +26,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
+import { useLogOutQuery } from "@/redux/features/auth/authApi";
 
 const Item = ({
   title,
@@ -61,11 +62,14 @@ const Item = ({
 const Sidebar = () => {
   const router = useRouter();
   const { user } = useSelector((state) => state.auth);
-  const [logout, setlogout] = useState(false);
+  const [logout, setLogout] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
+  const {} = useLogOutQuery(undefined, {
+    skip: !logout ? true : false
+  })
 
   useEffect(() => setMounted(true), []);
 
@@ -74,9 +78,9 @@ const Sidebar = () => {
   }
 
   const logoutHandler = () => {
-    setlogout(true);
+    // setlogout(true);
   };
-
+ 
   function deleteCookie(name) {
     // Set cookie with expired date
     document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
@@ -330,9 +334,10 @@ const Sidebar = () => {
                 onClick={(e) => {
                   try {
                     e.preventDefault();
-                    Cookies.remove("access_token");
-                    Cookies.remove("refresh_token");
-                    window.location.href = window.location.origin;
+                    setLogout(true)
+                    // await signOut()
+                    deleteCookie("access_token")
+                    window.location.replace("/")
                   } catch (e) {
                     console.log(e);
                   }
