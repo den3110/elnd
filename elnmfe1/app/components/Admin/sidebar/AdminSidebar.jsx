@@ -65,6 +65,11 @@ const Sidebar = () => {
     setlogout(true)
   }
 
+  function deleteCookie(name) {
+    // Set cookie with expired date
+    document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+  }
+
   return (
     <Box
       sx={{
@@ -299,7 +304,8 @@ const Sidebar = () => {
             </Typography>
             <div
               onClick={() => {
-                router.push("/logout")
+                deleteCookie("access_token")
+                window.location.href= window.location.origin 
               }}
             >
               {/* eslint-disable-next-line */}

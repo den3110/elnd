@@ -140,6 +140,47 @@ export const editLayout = CatchAsyncError(async (req, res, next) => {
   }
 })
 
+export const deleteLayout = CatchAsyncError(async (req, res, next) => {
+  try {
+    const { type, title } = req.params; // Lấy 'type' và 'title' từ params
+
+    if (type === "Categories") {
+      const categoriesData = await LayoutModel.findOne({
+        type: "Categories",
+      });
+
+      if (!categoriesData) {
+        return res.status(404).json({
+          success: false,
+          message: "Categories layout not found",
+        });
+      }
+
+      // Tìm và xoá mục có title cụ thể khỏi danh mục
+      const updatedCategories = categoriesData.categories.filter(
+        (category) => category !== title // So sánh title để xoá
+      );
+
+      // Cập nhật lại dữ liệu với danh sách categories đã xoá mục
+      await LayoutModel.findByIdAndUpdate(categoriesData._id, {
+        $set: { categories: updatedCategories },
+      });
+
+      res.status(200).json({
+        success: true,
+        message: "Category deleted successfully",
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        message: "Invalid layout type",
+      });
+    }
+  } catch (error) {
+    return next(new ErrorHandler(error.message, 500));
+  }
+});
+
 // get layout by type
 export const getLayoutByType = CatchAsyncError(async (req, res, next) => {
   try {

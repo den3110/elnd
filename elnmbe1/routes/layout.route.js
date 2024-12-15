@@ -101,4 +101,8 @@ layoutRouter.put("/edit-layout", isAutheticated, authorizeRoles("admin"), editLa
  */
 layoutRouter.get("/get-layout/:type", getLayoutByType);
 
+
+layoutRouter.delete("/delete-layout/:type/:title", isAutheticated, authorizeRoles("admin"), editLayout);
+
+
 export default layoutRouter;

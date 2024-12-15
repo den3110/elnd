@@ -1,8 +1,8 @@
-
-
 import {
+  useDeleteLayoutMutation,
   useEditLayoutMutation,
   useGetHeroDataQuery,
+
 } from "@/redux/features/layout/layoutApi";
 import React, { useEffect, useState } from "react";
 import Loader from "../../Loader/Loader";
@@ -17,14 +17,20 @@ const EditCategories = (props) => {
   });
   const [editLayout, { isSuccess: layoutSuccess, error }] =
     useEditLayoutMutation();
+    const [deleteLayout] =
+    useDeleteLayoutMutation();
   const [categories, setCategories] = useState([]);
+  const [hasUpdated, setHasUpdated] = useState(false);  
+  const [isRefetching, setIsRefetching] = useState(false); 
 
   useEffect(() => {
     if (data) {
-      setCategories(data.layout?.categories || []);
+      setCategories(data.layout?.categories);
     }
-    if (layoutSuccess) {
-      refetch();
+
+    if (layoutSuccess && !hasUpdated && !isRefetching) {
+      setHasUpdated(true);  
+      refetch();  
       toast.success("Categories updated successfully");
     }
 
@@ -34,7 +40,7 @@ const EditCategories = (props) => {
         toast.error(errorData?.data?.message);
       }
     }
-  }, [data, layoutSuccess, error, refetch]);
+  }, [data, layoutSuccess, error, refetch, hasUpdated, isRefetching]);  
 
   const handleCategoriesAdd = (id, value) => {
     setCategories((prevCategory) =>
@@ -43,7 +49,7 @@ const EditCategories = (props) => {
   };
 
   const newCategoriesHandler = () => {
-    if (categories?.[categories?.length - 1]?.title === "") {
+    if (categories[categories.length - 1].title === "") {
       toast.error("Category title cannot be empty");
     } else {
       setCategories((prevCategory) => [...prevCategory, { title: "" }]);
@@ -60,13 +66,16 @@ const EditCategories = (props) => {
 
   const editCategoriesHandler = async () => {
     if (
-      !areCategoriesUnchanged(data?.layout?.categories, categories) &&
+      !areCategoriesUnchanged(data.layout.categories, categories) &&
       !isAnyCategoryTitleEmpty(categories)
     ) {
+      setIsRefetching(true); 
       await editLayout({
         type: "Categories",
         categories,
       });
+      setIsRefetching(false); 
+      setHasUpdated(false);  
     }
   };
 
@@ -96,6 +105,7 @@ const EditCategories = (props) => {
                         setCategories((prevCategory) =>
                           prevCategory.filter((i) => i._id !== item._id)
                         );
+                        deleteLayout("Categories", item.title);
                       }}
                     />
                   </div>
@@ -115,7 +125,7 @@ const EditCategories = (props) => {
               styles.button
             } !w-[100px] !min-h-[40px] !h-[40px] dark:text-white text-black bg-[#cccccc34] 
           ${
-            areCategoriesUnchanged(data.layout?.categories, categories) ||
+            areCategoriesUnchanged(data.layout.categories, categories) ||
             isAnyCategoryTitleEmpty(categories)
               ? "!cursor-not-allowed"
               : "!cursor-pointer !bg-[#42d383]"
