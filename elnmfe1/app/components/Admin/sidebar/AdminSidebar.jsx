@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar"
-import { Box, IconButton, Typography } from "@mui/material"
-import "react-pro-sidebar/dist/css/styles.css"
+import { useEffect, useState } from "react";
+import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
+import { Box, IconButton, Typography } from "@mui/material";
+import "react-pro-sidebar/dist/css/styles.css";
 import {
   HomeOutlinedIcon,
   ArrowForwardIosIcon,
@@ -17,53 +17,64 @@ import {
   QuizIcon,
   WysiwygIcon,
   ManageHistoryIcon,
-  ExitToAppIcon
-} from "./Icon"
-import avatarDefault from "../../../../public/assests/avatar.png"
-import { useSelector } from "react-redux"
-import Link from "next/link"
-import Image from "next/image"
-import { useTheme } from "next-themes"
-import { useRouter } from "next/navigation"
+  ExitToAppIcon,
+} from "./Icon";
+import avatarDefault from "../../../../public/assests/avatar.png";
+import { useSelector } from "react-redux";
+import Link from "next/link";
+import Image from "next/image";
+import { useTheme } from "next-themes";
+import { useRouter } from "next/navigation";
 
-const Item = ({ title, to, icon, selected, setSelected, logoutBase }) => {
+const Item = ({
+  title,
+  to,
+  icon,
+  selected,
+  setSelected,
+  logoutBase,
+  onClick,
+}) => {
   return (
     <MenuItem
       active={selected === title}
-      onClick={() => setSelected(title)}
+      onClick={(e) => {
+        setSelected(title);
+        onClick(e);
+      }}
       icon={icon}
     >
       <Typography className="!text-[16px] !font-Poppins">{title}</Typography>
       <Link
-        onClick={e => {
+        onClick={(e) => {
           if (logoutBase === true) {
-            e.preventDefault()
+            e.preventDefault();
           }
         }}
         href={to}
       />
     </MenuItem>
-  )
-}
+  );
+};
 
 const Sidebar = () => {
-  const router = useRouter()
-  const { user } = useSelector(state => state.auth)
-  const [logout, setlogout] = useState(false)
-  const [isCollapsed, setIsCollapsed] = useState(false)
-  const [selected, setSelected] = useState("Dashboard")
-  const [mounted, setMounted] = useState(false)
-  const { theme, setTheme } = useTheme()
+  const router = useRouter();
+  const { user } = useSelector((state) => state.auth);
+  const [logout, setlogout] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [selected, setSelected] = useState("Dashboard");
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
 
-  useEffect(() => setMounted(true), [])
+  useEffect(() => setMounted(true), []);
 
   if (!mounted) {
-    return null
+    return null;
   }
 
   const logoutHandler = () => {
-    setlogout(true)
-  }
+    setlogout(true);
+  };
 
   function deleteCookie(name) {
     // Set cookie with expired date
@@ -76,24 +87,24 @@ const Sidebar = () => {
         "& .pro-sidebar-inner": {
           background: `${
             theme === "dark" ? "#111C43 !important" : "#fff !important"
-          }`
+          }`,
         },
         "& .pro-icon-wrapper": {
-          backgroundColor: "transparent !important"
+          backgroundColor: "transparent !important",
         },
         "& .pro-inner-item:hover": {
-          color: "#868dfb !important"
+          color: "#868dfb !important",
         },
         "& .pro-menu-item.active": {
-          color: "#6870fa !important"
+          color: "#6870fa !important",
         },
         "& .pro-inner-item": {
           padding: "5px 35px 5px 20px !important",
-          opacity: 1
+          opacity: 1,
         },
         "& .pro-menu-item": {
-          color: `${theme !== "dark" && "#000"}`
-        }
+          color: `${theme !== "dark" && "#000"}`,
+        },
       }}
       className="!bg-white dark:bg-[#111C43]"
     >
@@ -105,7 +116,7 @@ const Sidebar = () => {
           left: 0,
           height: "100vh",
           zIndex: 99999999999999,
-          width: isCollapsed ? "0%" : "16%"
+          width: isCollapsed ? "0%" : "16%",
         }}
       >
         <Menu iconShape="square">
@@ -114,7 +125,7 @@ const Sidebar = () => {
             onClick={() => setIsCollapsed(!isCollapsed)}
             icon={isCollapsed ? <ArrowForwardIosIcon /> : undefined}
             style={{
-              margin: "10px 0 20px 0"
+              margin: "10px 0 20px 0",
             }}
           >
             {!isCollapsed && (
@@ -150,7 +161,7 @@ const Sidebar = () => {
                   style={{
                     cursor: "pointer",
                     borderRadius: "50%",
-                    border: "3px solid #5b6fe6"
+                    border: "3px solid #5b6fe6",
                   }}
                 />
               </Box>
@@ -303,10 +314,10 @@ const Sidebar = () => {
               {!isCollapsed && "Extras"}
             </Typography>
             <div
-              onClick={() => {
-                deleteCookie("access_token")
-                window.location.href= window.location.origin 
-              }}
+            // onClick={() => {
+            //   deleteCookie("access_token")
+            //   window.location.href= window.location.origin
+            // }}
             >
               {/* eslint-disable-next-line */}
               <Item
@@ -314,8 +325,15 @@ const Sidebar = () => {
                 title="Logout"
                 icon={<ExitToAppIcon />}
                 selected={selected}
-                setSelected={e => {
-                  e.preventDefault()
+                setSelected={(e) => {}}
+                onClick={(e) => {
+                  try {
+                    e.preventDefault();
+                    deleteCookie("access_token");
+                    window.location.href = window.location.origin;
+                  } catch (e) {
+                    console.log(e);
+                  }
                 }}
                 logoutBase={true}
               />
@@ -324,20 +342,20 @@ const Sidebar = () => {
         </Menu>
       </ProSidebar>
     </Box>
-  )
-}
+  );
+};
 
 function deleteAllCookies() {
   // Lấy danh sách tất cả các cookie
-  var cookies = document.cookie.split(";")
+  var cookies = document.cookie.split(";");
 
   // Lặp qua từng cookie và đặt lại thời gian sống của nó thành một ngày ở quá khứ
   for (var i = 0; i < cookies.length; i++) {
-    var cookie = cookies[i]
-    var eqPos = cookie.indexOf("=")
-    var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie
-    document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/"
+    var cookie = cookies[i];
+    var eqPos = cookie.indexOf("=");
+    var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+    document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
   }
 }
 
-export default Sidebar
+export default Sidebar;
