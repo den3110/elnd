@@ -5,6 +5,8 @@ import React, { useEffect, useRef, useState } from "react"
 //add
 import axios from "axios"
 import ReactPlayer from "react-player"
+import MemoVideo from "./MemoVideo"
+import MemoVideoContent from "./MemoVideoContent"
 
 const CourseInformation = ({
   courseInfo,
@@ -276,13 +278,21 @@ const CourseInformation = ({
             onDrop={handleDrop}
           >
             {isEdit === true && courseInfo?.demoUrl && (
-              <ReactPlayer url={courseInfo?.demoUrl} controls={true} />
+              <>
+                {/* <ReactPlayer url={courseInfo?.demoUrl} controls={true} /> */}
+                <MemoVideoContent video={courseInfo?.demoUrl} />
+              </>
             )}
             {isEdit === true && !courseInfo?.demoUrl && (
               <span className="text-black dark:text-white">Upload Video </span>
             )}
             {isEdit !== true && file && (
-              <ReactPlayer url={URL.createObjectURL(file)} controls={true} />
+              <>
+                {/* <ReactPlayer url={URL.createObjectURL(file)} controls={true} /> */}
+                {/* <ReactPlayer url={URL.createObjectURL(file)} controls={true} /> */}
+                <MemoVideo video={file} />
+
+              </>
             )}
             {isEdit !== true && !file && (
               <span className="text-black dark:text-white">Upload Video </span>

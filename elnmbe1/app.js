@@ -17,6 +17,7 @@ import fileUpload from "express-fileupload"
 import swaggerJSDoc from "swagger-jsdoc"
 // @ts-ignore
 import swaggerUi from "swagger-ui-express"
+import path from "path"
 
 // Swagger
 const swaggerOptions = {
@@ -81,6 +82,9 @@ app.use(
   // end add
   uploadRouter
 )
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 
 // testing api
 app.get("/test", (req, res, next) => {
