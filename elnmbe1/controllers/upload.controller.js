@@ -30,7 +30,7 @@ export const uploadVideoController = CatchAsyncError(async (req, res, next) => {
       }
 
       // Response trả về URL file đã lưu
-      const fileUrl = `${req.protocol}://${req.get('host')}/uploads/videos/${path.basename(filePath).replaceAll(" ", "%20")}`;
+      const fileUrl = `https://${req.get('host')}/uploads/videos/${path.basename(filePath).replaceAll(" ", "%20")}`;
       // console.log("url", fileUrl);
 
       return res.status(200).json({ url: fileUrl });
