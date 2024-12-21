@@ -37,7 +37,7 @@ const CourseInformation = ({
       formData.append("file", file)
       formData.append("title", courseInfo.name)
       const res = await axios.post(
-        NEXT_PUBLIC_SERVER_URI + "upload",
+        process.env.NEXT_PUBLIC_SERVER_URI + "upload",
         formData
       )
       return res.data
@@ -57,17 +57,21 @@ const CourseInformation = ({
 
   const handleSubmit = async e => {
     e.preventDefault()
-    //end add
-    let dUrl
-    const res = await handleUpload()
-    if (res) {
-      dUrl = res
-    } else {
-      dUrl = courseInfo?.demoUrl
+    try {
+      let dUrl
+      const res = await handleUpload()
+      if (res) {
+        dUrl = res
+      } else {
+        dUrl = courseInfo?.demoUrl
+      }
+      //end add
+      setCourseInfo({ ...courseInfo, demoUrl: dUrl })
+      //end add
+      setActive(active + 1)
+    } catch (error) {
+      console.log(error)
     }
-    setCourseInfo({ ...courseInfo, demoUrl: dUrl })
-    //end add
-    setActive(active + 1)
   }
 
   const handleFileChange = e => {

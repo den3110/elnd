@@ -370,7 +370,7 @@ const CourseContent = ({
                       <textarea
                         rows={8}
                         cols={30}
-                        placeholder="sdder"
+                        placeholder="Video description..."
                         className={`${styles.input} !h-min py-2`}
                         value={item.description}
                         onChange={e => {

@@ -216,7 +216,7 @@ const CourseDetails = ({
           <div className="w-full 800px:w-[35%] relative">
             <div className="sticky top-[100px] left-0 z-50 w-full">
               <CoursePlayer
-                videoUrl={data?.demoUrl?.replace("http", "https")}
+                videoUrl={data?.demoUrl}
                 title={data?.title}
               />
               <div className="flex items-center"></div>

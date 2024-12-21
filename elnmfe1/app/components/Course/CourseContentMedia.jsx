@@ -215,7 +215,7 @@ const CourseContentMedia = ({
       {/*show video*/}
       <CoursePlayer
         title={data?.[activeVideo]?.title}
-        videoUrl={data?.[activeVideo]?.videoUrl?.replace("http", "https")}
+        videoUrl={data?.[activeVideo]?.videoUrl}
       />
 
       {/*back and next button*/}
