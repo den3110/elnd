@@ -10,9 +10,10 @@ import {
   useGetAllCoursesQuery
 } from "../../../../redux/features/courses/coursesApi"
 import { toast } from "react-hot-toast"
-import { redirect } from "next/navigation"
+import { redirect, useParams } from "next/navigation"
 
-const EditCourse = ({ id }) => {
+const EditCourse = () => {
+  const {id }= useParams()
   const [editCourse, { isSuccess, error }] = useEditCourseMutation()
   const { data, refetch } = useGetAllCoursesQuery(
     {},
@@ -20,7 +21,7 @@ const EditCourse = ({ id }) => {
   )
 
   const editCourseData = data && data.courses.find(i => i._id === id)
-
+  console.log(editCourseData)
   useEffect(() => {
     if (isSuccess) {
       toast.success("Course Updated successfully")

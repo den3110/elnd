@@ -4,6 +4,7 @@ import DashboardHeader from '@/app/components/Admin/DashboardHeader';
 import CreateCourse from '@/app/components/Admin/Course/CreateCourse';
 import Heading from '@/app/utils/Heading';
 import AdminSidebar from '@/app/components/Admin/sidebar/AdminSidebar';
+import EditCourse from '@/app/components/Admin/Course/EditCourse';
 
 const page = (props) => {
   return (
@@ -19,7 +20,7 @@ const page = (props) => {
             </div>
             <div className="w-[85%]">
                <DashboardHeader />
-               <CreateCourse /> 
+               <EditCourse /> 
             </div>
         </div>
     </div>
