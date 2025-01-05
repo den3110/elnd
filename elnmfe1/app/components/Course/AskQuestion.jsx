@@ -8,32 +8,50 @@ const ChatUI = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [currentConversation, setCurrentConversation] = useState(0)
 
-  const handleInputChange = e => {
+  const handleInputChange = (e) => {
     setInputValue(e.target.value)
   }
 
   const handleSendMessage = async () => {
     if (inputValue.trim()) {
       setIsLoading(true)
+      // Thêm tin nhắn người dùng
       setMessages([...messages, { text: inputValue, sender: "user" }])
       setInputValue("")
 
       try {
+        // Gọi OpenAI API thay cho API cũ, dùng GPT-4
         const response = await axios.post(
-          "https://api-chat-with-langchain-by-fastapi.onrender.com/ask",
-          { question: inputValue }
+          "https://api.openai.com/v1/chat/completions",
+          {
+            model: "gpt-4",
+            messages: [
+              { role: "system", content: "You are a helpful assistant." },
+              { role: "user", content: inputValue }
+            ]
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer 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`
+            }
+          }
         )
-        const botResponse = response.data.response
+
+        // Trích xuất phần nội dung trả lời của ChatGPT (GPT-4)
+        const botResponse = response.data.choices[0].message.content
+
+        // Thêm tin nhắn bot vào danh sách tin nhắn
         setMessages([
           ...messages,
           { text: inputValue, sender: "user" },
           { text: botResponse, sender: "bot" }
         ])
       } catch (error) {
-        console.error("Error calling ChatBot API:", error)
+        console.error("Error calling OpenAI API:", error)
         setMessages([
           ...messages,
-          { text: "Đã xảy ra lỗi khi gọi API ChatBot", sender: "bot" }
+          { text: "Đã xảy ra lỗi khi gọi OpenAI API", sender: "bot" }
         ])
       } finally {
         setIsLoading(false)
@@ -50,7 +68,7 @@ const ChatUI = () => {
     <div className="chat-container">
       <div className="chat-header">
         <button onClick={handleNewConversation}>
-          Create new conversation{" "}
+          Create new conversation
         </button>
         <span>Number of conversation: {currentConversation}</span>
       </div>
